@@ -1,0 +1,24 @@
+{
+  "os":  "Windows-11-10.0.22631-SP0",
+  "python":  "CPython 3.14.3",
+  "startedAt":  "2026-04-29T00:32:09.262247Z",
+  "program":  "c:\\Users\\leona\\Downloads\\heart-disease-classification-mlops\\notebooks\\analysis.ipynb",
+  "codePath":  "c:\\Users\\leona\\Downloads\\heart-disease-classification-mlops\\notebooks\\analysis.ipynb",
+  "codePathLocal":  "analysis.ipynb",
+  "email":  "leonardo.dantas.120@ufrn.edu.br",
+  "root":  "c:\\Users\\leona\\Downloads\\heart-disease-classification-mlops\\notebooks",
+  "host":  "leonardo",
+  "executable":  "c:\\Users\\leona\\Downloads\\heart-disease-classification-mlops\\venv\\Scripts\\python.exe",
+  "cpu_count":  2,
+  "cpu_count_logical":  2,
+  "disk":  {
+    "/":  {
+      "total":  "60280532992",
+      "used":  "53466738688"
+    }
+  },
+  "memory":  {
+    "total":  "4091756544"
+  },
+  "writerId":  "qn8l8hm3q3zd52bzdcllpxugi5yndw07"
+}
