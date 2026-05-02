@@ -19,27 +19,21 @@ The pipeline includes:
 ---
 
 ## 📁 Project Structure
-/heart-disease-classification-mlops
-│
+heart-disease-classification-mlops/
 ├── config/
-│ └── config.yaml
-│
+│   └── config.yaml        
 ├── data/
-│ └── raw/
-│
+│   └── raw/              
 ├── src/
-│ ├── data_loading.py
-│ ├── data_cleaning.py
-│ ├── data_preprocessing.py
-│ └── utils.py
-│
+│   ├── data_loading.py     
+│   ├── data_cleaning.py   
+│   ├── data_preprocessing.py
+│   └── utils.py            
 ├── pipelines/
-│ └── run_pipeline.py
-│
-├── tests/
-│
-├── requirements.txt
-└── README.md
+│   └── run_pipeline.py     
+├── tests/                  
+├── requirements.txt         
+└── README.md               
 ---
 
 ## 📊 Dataset
