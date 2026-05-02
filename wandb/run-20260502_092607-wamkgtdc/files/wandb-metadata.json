@@ -1,0 +1,26 @@
+{
+  "os":  "Windows-11-10.0.22631-SP0",
+  "python":  "CPython 3.14.3",
+  "startedAt":  "2026-05-02T12:26:07.899754Z",
+  "program":  "-m pipelines.run_pipeline",
+  "git":  {
+    "remote":  "https://github.com/leonardoddantas/heart-disease-classification-mlops.git",
+    "commit":  "2033bdf183596bafbd114900a421ae043032e4d7"
+  },
+  "email":  "leonardo.dantas.120@ufrn.edu.br",
+  "root":  "C:\\Users\\leona\\Downloads\\heart-disease-classification-mlops",
+  "host":  "leonardo",
+  "executable":  "C:\\Users\\leona\\Downloads\\heart-disease-classification-mlops\\venv\\Scripts\\python.exe",
+  "cpu_count":  2,
+  "cpu_count_logical":  2,
+  "disk":  {
+    "/":  {
+      "total":  "60280532992",
+      "used":  "58826305536"
+    }
+  },
+  "memory":  {
+    "total":  "4091756544"
+  },
+  "writerId":  "7cx3r6ycgfy7252x3jofnsgi5sihnheu"
+}

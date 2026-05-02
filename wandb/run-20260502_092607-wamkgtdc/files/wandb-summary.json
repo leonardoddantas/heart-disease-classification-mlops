@@ -1,0 +1,1 @@
+{"rows":302,"columns":["age","sex","resting_bp","cholestoral","fasting_blood_sugar","max_hr","exang","oldpeak","num_major_vessels","target","chest_pain_type_1","chest_pain_type_2","chest_pain_type_3","restecg_1","restecg_2","slope_1","slope_2","thal_1","thal_2","thal_3"],"_wandb":{"runtime":13},"_runtime":13}

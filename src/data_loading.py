@@ -3,9 +3,7 @@ import shutil
 import os
 import pandas as pd
 
-
 def download_dataset():
-    """Download dataset from Kaggle using kagglehub"""
     
     path = kagglehub.dataset_download(
         "abhishek14398/heart-disease-classification"
@@ -14,9 +12,7 @@ def download_dataset():
     print(f"Downloaded to: {path}")
     return path
 
-
 def copy_to_project(path):
-    """Copy dataset to project data/raw folder"""
     
     destination = os.path.join(os.getcwd(), "data", "raw")
     
@@ -27,9 +23,10 @@ def copy_to_project(path):
     print(f"Dataset copied to: {destination}")
 
 def load_data():
+
     path = download_dataset()
     copy_to_project(path)
     
-    df = pd.read_csv("data/raw/heart.csv")
+    df_heart_dissease = pd.read_csv("data/raw/heart.csv")
     
-    return df
+    return df_heart_dissease
