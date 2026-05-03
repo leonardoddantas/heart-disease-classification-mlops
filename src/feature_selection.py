@@ -1,4 +1,6 @@
-from sklearn.feature_selection import SelectKBest, f_classif, mutual_info_classif
+from sklearn.feature_selection import f_classif, mutual_info_classif
+from sklearn.ensemble import RandomForestClassifier
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 import pandas as pd
 import numpy as np
 
@@ -22,41 +24,82 @@ def correlation_analysis(df: pd.DataFrame, threshold: float = 0.9):
     
     return to_drop
 
-def select_features_f_classif(X, y, k=10):
+def get_correlation_scores(X, y):
     
-    selector = SelectKBest(score_func=f_classif, k=k)
+    df = X.copy()
+    df["target"] = y
     
-    X_new = selector.fit_transform(X, y)
+    return df.corr()["target"].drop("target").abs()
+
+def get_f_classif_scores(X, y):
     
-    selected_features = X.columns[selector.get_support()]
+    scores, _ = f_classif(X, y)
     
-    scores = selector.scores_
+    return pd.Series(scores, index=X.columns)
+
+def get_mutual_info_scores(X, y):
     
-    feature_scores = sorted(
-        zip(X.columns, scores),
-        key=lambda x: x[1],
-        reverse=True
+    scores = mutual_info_classif(X, y, random_state=42)
+    
+    return pd.Series(scores, index=X.columns)
+
+def get_random_forest_scores(X, y):
+    
+    model = RandomForestClassifier(
+        n_estimators=100,
+        random_state=42,
+        n_jobs=-1
     )
     
-    print("\nFeature scores (f_classif):")
-    for name, score in feature_scores:
-        print(f"{name}: {score:.4f}")
+    model.fit(X, y)
     
-    return selected_features
+    return pd.Series(model.feature_importances_, index=X.columns)
 
-def select_features_mutual_info(X: pd.DataFrame, y: pd.Series, k=10):
+def normalize(s):
+    if s.max() == s.min():
+        return pd.Series(0, index=s.index)
+    return (s - s.min()) / (s.max() - s.min())
+
+def aggregate_feature_selection(X, y):
     
-    mi_scores = mutual_info_classif(X, y, random_state=42)
+    corr = get_correlation_scores(X, y)
+    f = get_f_classif_scores(X, y)
+    mi = get_mutual_info_scores(X, y)
+    rf = get_random_forest_scores(X, y)
     
-    mi_series = pd.Series(mi_scores, index=X.columns)
-    mi_series = mi_series.sort_values(ascending=False)
+    df_scores = pd.DataFrame({
+        "Correlation": normalize(corr),
+        "F_classif": normalize(f),
+        "Mutual_Info": normalize(mi),
+        "Random_Forest": normalize(rf)
+    })
     
-    print("\nMutual Information scores:")
-    for feature, score in mi_series.items():
-        print(f"{feature}: {score:.4f}")
+    df_scores["Final_Score"] = df_scores.mean(axis=1)
     
-    selected_features = mi_series.head(k).index.tolist()
+    df_scores = df_scores.sort_values(by="Final_Score", ascending=False)
     
+    print("\n=== Feature Selection Comparison ===\n")
+    print(df_scores.round(4))
+
+    selected_features = df_scores.index[:10].tolist()
+
     print("\nSelected features:", selected_features)
+
+    return df_scores, selected_features
+
+def calculate_vif(X: pd.DataFrame):
     
-    return selected_features
+    vif_data = pd.DataFrame()
+    vif_data["feature"] = X.columns
+    
+    vif_data["VIF"] = [
+        variance_inflation_factor(X.values, i)
+        for i in range(X.shape[1])
+    ]
+    
+    vif_data = vif_data.sort_values(by="VIF", ascending=False)
+    
+    print("\n=== VIF (Multicollinearity Check) ===\n")
+    print(vif_data)
+    
+    return vif_data
