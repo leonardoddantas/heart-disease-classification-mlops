@@ -1,0 +1,12 @@
+data:
+  target_col: target
+  test_size: 0.2
+  random_state: 42
+
+model:
+  hidden_sizes: [64, 32, 16]
+  dropout: 0.2
+  learning_rate: 0.0005
+  epochs: 100
+  early_stopping_patience: 10
+  batch_size: 16
